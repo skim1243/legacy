@@ -67,7 +67,7 @@ const Achievements: React.FC = () => {
             <div className="w-full p-4 md:w-1/2">
               <div className="mb-4">
                 <label className="mb-2 block font-semibold">Achievements</label>
-                {[...Array(5)].map((_, index) => (
+                {Array.from({ length: 5 }, (_, index) => (
                   <input
                     key={index}
                     type="text"

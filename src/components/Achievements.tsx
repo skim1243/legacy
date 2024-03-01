@@ -25,7 +25,7 @@ const Achievements: React.FC = () => {
             {/* Achievements List */}
             <div className="space-y-2">
               <div className="font-semibold">Please list your achievements (100 words per item)</div>
-              {[...Array(5)].map((_, index) => (
+              {Array.from({ length: 5 }, (_, index) => (
                 <input
                   key={index}
                   type="text"
