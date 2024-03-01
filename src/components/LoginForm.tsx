@@ -11,10 +11,14 @@ const LoginForm: React.FC = () => {
     return email.match(/@uni.minerva\.edu$/);
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (email && password && validateEmail(email)) {
-      router.push("/Achievements");
+      try {
+        await router.push("/Achievements");
+      } catch (error) {
+        console.error("Failed to navigate to Achievements", error);
+      }
     } else {
       alert(
         "Please use a Minerva email address and fill in the password field.",

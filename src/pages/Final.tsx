@@ -1,7 +1,6 @@
 import React from "react";
 import Navbar from "~/components/Navbar";
 import Link from "next/link";
-import Image from "next/image"; // If you want to use Next.js Image component
 
 const FinalPage: React.FC = () => {
   return (

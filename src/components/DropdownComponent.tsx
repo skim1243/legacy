@@ -1,7 +1,6 @@
 // DropdownComponent.tsx
 import React, {useState} from 'react';
-import Select from 'react-select';
-import { CountryDropdown, CountryRegionData } from 'react-country-region-selector';
+import { CountryDropdown } from 'react-country-region-selector';
 
 const DropdownComponent = () => {
     const [country, setCountry] = useState('');

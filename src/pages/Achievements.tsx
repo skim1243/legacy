@@ -9,7 +9,7 @@ const Achievements: React.FC = () => {
 
   // Function to handle navigation
   const navigateToQuestions = () => {
-    router.push("/questions/1"); // Navigate to the first question page
+    void router.push("/questions/1"); // Navigate to the first question page
   };
   return (
     <>
@@ -25,6 +25,7 @@ const Achievements: React.FC = () => {
               <br />
               achievements
             </h1>
+          {/* eslint-disable-next-line @typescript-eslint/no-unsafe-assignment */}
           </div>
           {/* Inputs and Achievements */}
           <div className="flex w-full flex-wrap md:w-2/3">
