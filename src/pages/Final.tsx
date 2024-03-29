@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "~/components/Navbar";
+
 import { db } from "./../../firebase"; // Adjust the path based on your actual file structure
 import { doc, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
@@ -12,7 +13,6 @@ const FinalPage: React.FC = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         // User is signed in, now fetch the document
-        const uid = user.uid;
         // Fetch the document using uid
       } else {
         // User is signed out
@@ -29,44 +29,45 @@ const FinalPage: React.FC = () => {
         console.log("User not logged in");
         return;
       }
-
-      // Assuming the document ID in the 'responses' collection matches the user's UID
+  
       const responsesRef = doc(db, "responses", user.uid);
-      const docSnap = await getDoc(responsesRef);
-
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        const tally = { Civic: 0, Legion: 0, Liberty: 0, North: 0, Tower: 0 };
-
-        // Tally up the responses
-        Object.values(data).forEach((value) => {
-          if (typeof value === "string" && tally.hasOwnProperty(value)) {
-            tally[value as keyof typeof tally]++;
+      getDoc(responsesRef)
+        .then((docSnap) => {
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            const tally = { Civic: 0, Legion: 0, Liberty: 0, North: 0, Tower: 0 };
+  
+            Object.values(data).forEach((value) => {
+              if (typeof value === "string" && tally.hasOwnProperty(value)) {
+                tally[value as keyof typeof tally]++;
+              }
+            });
+  
+            const [highestCategory] = Object.entries(tally).reduce((a, b) => a[1] > b[1] ? a : b);
+  
+            const adjectives = {
+              Civic: "Community-Oriented",
+              Legion: "Resilient",
+              Liberty: "Independent",
+              North: "Visionary",
+              Tower: "Courageous",
+            };
+  
+            setVibe(adjectives[highestCategory as keyof typeof adjectives]);
+          } else {
+            console.log("No responses document found for the user.");
           }
+        })
+        .catch((error) => {
+          console.error("Error getting document:", error);
         });
-
-        // Find the category with the highest tally
-        const [highestCategory] = Object.entries(tally).reduce((a, b) =>
-          a[1] > b[1] ? a : b,
-        );
-
-        // Map the category to an adjective
-        const adjectives = {
-          Civic: "Community-Oriented",
-          Legion: "Resilient",
-          Liberty: "Independent",
-          North: "Visionary",
-          Tower: "Courageous",
-        };
-
-        setVibe(adjectives[highestCategory as keyof typeof adjectives]);
-      } else {
-        console.log("No responses document found for the user.");
-      }
     };
-
-    evaluateResponses();
+  
+    evaluateResponses().catch((error) => {
+      console.error("Error in evaluateResponses:", error);
+    });
   }, []);
+  
 
   return (
     <>

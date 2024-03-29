@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import app from "../../firebase";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from "firebase/auth";
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -16,44 +16,32 @@ const LoginForm: React.FC = () => {
     return email.match(/@uni.minerva\.edu$/);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setEmailError(!validateEmail(email)); // Set email error state based on validation
     if (email && password && validateEmail(email)) {
-      try {
-        if (isRegister) {
-          // Register the user
-          await createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              // Signed up
-              router.push("/Achievements"); // Navigate on successful signup
-            })
-            .catch((error) => {
-              console.error("Failed to register", error.code, error.message);
-              alert("Registration failed. Please try again.");
-            });
-        } else {
-          // Log in the user
-          await signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-              // Signed in
-              router.push("/Achievements"); // Navigate on successful login
-            })
-            .catch((error) => {
-              console.error("Failed to log in", error.code, error.message);
-              alert("Login failed. Please try again.");
-            });
-        }
-      } catch (error) {
-        console.error("Failed to authenticate", error);
-        alert("Authentication failed. Please try again.");
-      }
+      const authAction = isRegister
+        ? createUserWithEmailAndPassword(auth, email, password)
+        : signInWithEmailAndPassword(auth, email, password);
+  
+      authAction
+        .then(() => {
+          // Navigate on successful signup/login
+          return router.push("/Achievements");
+        })
+        .then(() => {
+          console.log("Navigation successful");
+        })
+        .catch((error) => {
+          console.error("Failed to authenticate or navigate:", error);
+          alert("Authentication failed. Please try again.");
+        });
     } else {
-      alert(
-        "Please use a Minerva email address and fill in the password field."
-      );
+      alert("Please use a Minerva email address and fill in the password field.");
     }
   };
+  
+  
 
   const toggleRegister = () => {
     setIsRegister(!isRegister);

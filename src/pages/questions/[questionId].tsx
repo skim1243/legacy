@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
 import { db } from "./../../../firebase";
-import { doc, collection, setDoc, updateDoc, addDoc } from "firebase/firestore";
-import {getAuth} from "firebase/auth";
+import { doc, collection, updateDoc, addDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const questions = [
   {
@@ -173,8 +173,8 @@ const questions = [
 const auth = getAuth(); // Initialize Firebase Authentication
 const user = auth.currentUser;
 
-
 const QuestionPage: React.FC = () => {
+  const question = questions.find((q) => q.id === currentQuestion);
   const router = useRouter();
   const { questionId } = router.query;
   const [selectedOption, setSelectedOption] = useState<string>("");
@@ -182,14 +182,6 @@ const QuestionPage: React.FC = () => {
     parseInt(questionId as string),
   );
   const [responseId, setResponseId] = useState<string | null>(null); // To store the response document ID
-
-  useEffect(() => {
-    if (questionId) {
-      setCurrentQuestion(parseInt(questionId as string));
-    }
-  }, [questionId]);
-
-  const question = questions.find((q) => q.id === currentQuestion);
 
   if (!question) {
     return <div>Question not found</div>; // Handling non-existent questions
@@ -212,37 +204,26 @@ const QuestionPage: React.FC = () => {
 
     try {
       if (!responseId && currentQuestion === 1) {
-        // If it's the first question and we don't have a responseId, create a new document
-        const docRef = await addDoc(collection(db, "responses"), responseToStore);
+        const docRef = await addDoc(
+          collection(db, "responses"),
+          responseToStore,
+        );
         setResponseId(docRef.id); // Save the new document ID
       } else if (responseId) {
-        // If we already have a responseId, update the existing document
         await updateDoc(doc(db, "responses", responseId), responseToStore);
       }
 
-      // Navigate to the next question or the final page
       const nextQuestionId = currentQuestion + 1;
       if (nextQuestionId <= questions.length) {
-        await router.push(`/questions/${nextQuestionId}`);
+        void router.push(`/questions/${nextQuestionId}`);
       } else {
-        await router.push("/Final");
+        void router.push("/Final");
       }
     } catch (error) {
       console.error("Error writing document: ", error);
       alert("Failed to save response. Please try again.");
     }
   };
-
-  useEffect(() => {
-    const fetchResponseId = async () => {
-      // ... code to fetch and set the responseId from the database if it already exists
-    };
-
-    if (questionId) {
-      setCurrentQuestion(parseInt(questionId as string));
-      fetchResponseId();
-    }
-  }, [questionId]);
 
   return (
     <>
