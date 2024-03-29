@@ -9,8 +9,8 @@ const Navbar: React.FC = () => {
         <Image src="/minerva.svg" alt="Logo" width={50} height={50} />
       </div>
       <div className="hidden md:flex space-x-4">
-        <Link href="/about" className="text-[#6C757D] hover:text-[#111928] transition duration-150 ease-in-out">About</Link>
-        <Link href="/account" className="text-[#6C757D] hover:text-[#111928] transition duration-150 ease-in-out">Account</Link>
+        <Link href="/" className="text-[#6C757D] hover:text-[#111928] transition duration-150 ease-in-out">About</Link>
+        <Link href="/" className="text-[#6C757D] hover:text-[#111928] transition duration-150 ease-in-out">Account</Link>
       </div>
     </nav>
   );
