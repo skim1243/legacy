@@ -1,8 +1,73 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "~/components/Navbar";
-import Link from "next/link";
+import { db } from "./../../firebase"; // Adjust the path based on your actual file structure
+import { doc, getDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const FinalPage: React.FC = () => {
+  const [vibe, setVibe] = useState<string>("");
+
+  useEffect(() => {
+    const auth = getAuth();
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in, now fetch the document
+        const uid = user.uid;
+        // Fetch the document using uid
+      } else {
+        // User is signed out
+        console.log("User not logged in");
+      }
+    });
+  }, []);
+
+  useEffect(() => {
+    const evaluateResponses = async () => {
+      const auth = getAuth();
+      const user = auth.currentUser;
+      if (!user) {
+        console.log("User not logged in");
+        return;
+      }
+
+      // Assuming the document ID in the 'responses' collection matches the user's UID
+      const responsesRef = doc(db, "responses", user.uid);
+      const docSnap = await getDoc(responsesRef);
+
+      if (docSnap.exists()) {
+        const data = docSnap.data();
+        const tally = { Civic: 0, Legion: 0, Liberty: 0, North: 0, Tower: 0 };
+
+        // Tally up the responses
+        Object.values(data).forEach((value) => {
+          if (typeof value === "string" && tally.hasOwnProperty(value)) {
+            tally[value as keyof typeof tally]++;
+          }
+        });
+
+        // Find the category with the highest tally
+        const [highestCategory] = Object.entries(tally).reduce((a, b) =>
+          a[1] > b[1] ? a : b,
+        );
+
+        // Map the category to an adjective
+        const adjectives = {
+          Civic: "Community-Oriented",
+          Legion: "Resilient",
+          Liberty: "Independent",
+          North: "Visionary",
+          Tower: "Courageous",
+        };
+
+        setVibe(adjectives[highestCategory as keyof typeof adjectives]);
+      } else {
+        console.log("No responses document found for the user.");
+      }
+    };
+
+    evaluateResponses();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -20,13 +85,8 @@ const FinalPage: React.FC = () => {
         </h1>
         <p className="mt-4 text-2xl">
           Your Minerva vibe is{" "}
-          <span className="text-orange-500">Goal Oriented</span>
+          <span className="text-orange-500">{vibe || "evaluating..."}</span>
         </p>
-        <button className="mt-8 rounded-full bg-blue-600 px-4 py-2 text-white">
-          <Link className="text-white no-underline" href="/FinalDetails">
-              View Details to your personality
-          </Link>
-        </button>
       </main>
     </>
   );

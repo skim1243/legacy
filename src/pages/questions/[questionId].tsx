@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Navbar from "~/components/Navbar";
+import { db } from "./../../../firebase";
+import { doc, collection, setDoc, updateDoc, addDoc } from "firebase/firestore";
+import {getAuth} from "firebase/auth";
 
-// Example question data structure
 const questions = [
   {
     id: 1,
@@ -168,6 +170,10 @@ const questions = [
   },
 ];
 
+const auth = getAuth(); // Initialize Firebase Authentication
+const user = auth.currentUser;
+
+
 const QuestionPage: React.FC = () => {
   const router = useRouter();
   const { questionId } = router.query;
@@ -175,6 +181,7 @@ const QuestionPage: React.FC = () => {
   const [currentQuestion, setCurrentQuestion] = useState<number>(
     parseInt(questionId as string),
   );
+  const [responseId, setResponseId] = useState<string | null>(null); // To store the response document ID
 
   useEffect(() => {
     if (questionId) {
@@ -185,8 +192,7 @@ const QuestionPage: React.FC = () => {
   const question = questions.find((q) => q.id === currentQuestion);
 
   if (!question) {
-    // If the question doesn't exist, you can redirect, show a 404, etc.
-    return <div>Question not found</div>;
+    return <div>Question not found</div>; // Handling non-existent questions
   }
 
   const handleOptionChange = (value: string) => {
@@ -194,57 +200,83 @@ const QuestionPage: React.FC = () => {
   };
 
   const goToNextQuestion = async () => {
-    const nextQuestionId = currentQuestion + 1;
-    if (nextQuestionId <= questions.length) {
-      try {
+    if (!user) {
+      alert("You must be signed in to submit your answers.");
+      return;
+    }
+
+    const responseToStore = {
+      [`q${question.id}`]: selectedOption,
+      userId: user.uid, // Include the user's UID in the document
+    };
+
+    try {
+      if (!responseId && currentQuestion === 1) {
+        // If it's the first question and we don't have a responseId, create a new document
+        const docRef = await addDoc(collection(db, "responses"), responseToStore);
+        setResponseId(docRef.id); // Save the new document ID
+      } else if (responseId) {
+        // If we already have a responseId, update the existing document
+        await updateDoc(doc(db, "responses", responseId), responseToStore);
+      }
+
+      // Navigate to the next question or the final page
+      const nextQuestionId = currentQuestion + 1;
+      if (nextQuestionId <= questions.length) {
         await router.push(`/questions/${nextQuestionId}`);
-      } catch (error) {
-        console.error("Failed to navigate to the next question", error);
+      } else {
+        await router.push("/Final");
       }
-    } else {
-      try {
-        await router.push("/Final"); // Redirect to Final.tsx
-      } catch (error) {
-        console.error("Failed to navigate to the final page", error);
-      }
+    } catch (error) {
+      console.error("Error writing document: ", error);
+      alert("Failed to save response. Please try again.");
     }
   };
+
+  useEffect(() => {
+    const fetchResponseId = async () => {
+      // ... code to fetch and set the responseId from the database if it already exists
+    };
+
+    if (questionId) {
+      setCurrentQuestion(parseInt(questionId as string));
+      fetchResponseId();
+    }
+  }, [questionId]);
 
   return (
     <>
       <Navbar />
       <main className="container mx-auto flex min-h-screen flex-col items-center justify-center p-4">
-        {/* ... Progress Bar and other content */}
-        <div className="mt-8 w-full max-w-xl rounded-md border border-gray-300 bg-white p-4 shadow-sm">
-          <h2 className="mb-4 text-2xl font-bold">
-            Question {currentQuestion}
-          </h2>
-          <p className="mb-6">{question.text}</p>
-          <form>
-            {question.options.map((option) => (
-              <label
-                key={option.id}
-                className="mb-4 block cursor-pointer rounded-md bg-[#E0D6D680] p-4 transition-transform hover:scale-105"
-              >
-                <input
-                  type="radio"
-                  name={`question${currentQuestion}`}
-                  value={option.value}
-                  checked={selectedOption === option.value}
-                  onChange={() => handleOptionChange(option.value)}
-                  className="mr-2"
-                />
-                <span className="text-lg text-[#333333]">{option.label}</span>
-              </label>
-            ))}
-          </form>
-        </div>
-        {/* Navigation Button */}
-        <div className="mt-8 flex justify-center">
+        <div className="flex w-full max-w-xl items-center justify-between">
+          <div className="w-full max-w-xl rounded-md border border-gray-300 bg-white p-4 shadow-sm">
+            <h2 className="mb-4 text-2xl font-bold">
+              Question {currentQuestion}
+            </h2>
+            <p className="mb-6">{question.text}</p>
+            <form>
+              {question.options.map((option) => (
+                <label
+                  key={option.id}
+                  className="mb-4 block cursor-pointer rounded-md bg-[#E0D6D680] p-4 transition-transform hover:scale-105"
+                >
+                  <input
+                    type="radio"
+                    name={`question${currentQuestion}`}
+                    value={option.value}
+                    checked={selectedOption === option.value}
+                    onChange={() => handleOptionChange(option.value)}
+                    className="mr-2"
+                  />
+                  <span className="text-lg text-[#333333]">{option.label}</span>
+                </label>
+              ))}
+            </form>
+          </div>
           <button
             onClick={goToNextQuestion}
             disabled={!selectedOption}
-            className={`rounded-full bg-[#1F2A37] px-4 py-2 text-white ${!selectedOption ? "cursor-not-allowed opacity-50" : ""}`}
+            className={`ml-4 inline-block rounded-full bg-[#1F2A37] px-4 py-2 text-white hover:bg-slate-700 ${!selectedOption ? "cursor-not-allowed opacity-50" : ""}`}
           >
             <span className="text-xl">&gt;</span>
           </button>
