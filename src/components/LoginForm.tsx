@@ -13,7 +13,7 @@ const LoginForm: React.FC = () => {
   const auth = getAuth(app);
 
   const validateEmail = (email: string) => {
-    return email.match(/@uni.minerva\.edu$/);
+    return email.match(/minerva\.edu$/);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
