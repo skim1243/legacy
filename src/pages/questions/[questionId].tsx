@@ -5,6 +5,7 @@ import { db } from "./../../../firebase";
 import { doc, collection, updateDoc, addDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+
 const questions = [
   {
     id: 1,
@@ -174,17 +175,25 @@ const auth = getAuth(); // Initialize Firebase Authentication
 const user = auth.currentUser;
 
 const QuestionPage: React.FC = () => {
-  const question = questions.find((q) => q.id === currentQuestion);
   const router = useRouter();
   const { questionId } = router.query;
   const [selectedOption, setSelectedOption] = useState<string>("");
-  const [currentQuestion, setCurrentQuestion] = useState<number>(
-    parseInt(questionId as string),
-  );
-  const [responseId, setResponseId] = useState<string | null>(null); // To store the response document ID
+  const [currentQuestion, setCurrentQuestion] = useState<number>(1); // Initialize with a default value
+  const [responseId, setResponseId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (questionId) {
+      const parsedQuestionId = parseInt(questionId as string);
+      if (!isNaN(parsedQuestionId)) {
+        setCurrentQuestion(parsedQuestionId);
+      }
+    }
+  }, [questionId]);
+
+  const question = questions.find((q) => q.id === currentQuestion) ?? null;
 
   if (!question) {
-    return <div>Question not found</div>; // Handling non-existent questions
+    return <div>Question not found</div>;
   }
 
   const handleOptionChange = (value: string) => {
@@ -199,16 +208,16 @@ const QuestionPage: React.FC = () => {
 
     const responseToStore = {
       [`q${question.id}`]: selectedOption,
-      userId: user.uid, // Include the user's UID in the document
+      userId: user.uid,
     };
 
     try {
       if (!responseId && currentQuestion === 1) {
         const docRef = await addDoc(
           collection(db, "responses"),
-          responseToStore,
+          responseToStore
         );
-        setResponseId(docRef.id); // Save the new document ID
+        setResponseId(docRef.id);
       } else if (responseId) {
         await updateDoc(doc(db, "responses", responseId), responseToStore);
       }
