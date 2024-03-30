@@ -84,12 +84,12 @@ const Achievements: React.FC = () => {
               {/* Replace DropdownComponent with actual dropdowns if needed */}
               <div className="mb-4">
                 <label className="mb-2 block font-semibold">
-                  Countries Lived In
+                  Country You Live In
                 </label>
                 <DropdownComponent />
               </div>
               <div className="mb-4">
-                <label className="mb-2 block font-semibold">Citizenships</label>
+                <label className="mb-2 block font-semibold">Citizenship</label>
                 <DropdownComponent />
               </div>
               <div>

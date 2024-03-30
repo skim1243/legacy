@@ -85,90 +85,367 @@ const questions = [
       { id: "q3_tower", value: "Tower", label: "Attending an art exhibition" },
     ],
   },
+
   {
     id: 4,
-    text: "What kind of challenge are you most drawn to?",
+    text: "When you encounter a problem, what is your typical approach to finding a solution?",
     options: [
-      { id: "q4_civic", value: "Civic", label: "Solving a complex problem" },
-      { id: "q4_legion", value: "Legion", label: "Conquering an opponent" },
+      { id: "q4_vista", value: "Vista", label: "Breaking it down into smaller parts and analyzing each one" },
+      { id: "q4_plaza", value: "Plaza", label: "Asking for advice or help from others" },
       {
-        id: "q4_liberty",
-        value: "Liberty",
-        label: "Defending individual rights",
+        id: "q4_ocean",
+        value: "Ocean",
+        label: "Trying out different solutions until one works",
       },
       {
-        id: "q4_north",
-        value: "North",
-        label: "Engaging in exterior activities",
+        id: "q4_lands",
+        value: "Lands",
+        label: "Researching and gathering as much information as possible",
       },
-      { id: "q4_tower", value: "Tower", label: "Personas overcoming problems" },
+      { id: "q4_reserve", value: "Reserve", label: "Trusting your intuition and making a quick decision" },
     ],
   },
+
   {
     id: 5,
-    text: "Which of these quotes resonates with you the most?",
+    text: "When faced with a difficult decision, which factor is most important to you?",
     options: [
+      { id: "q5_vista", value: "Vista", label: "The impact it will have on others" },
+      { id: "q5_plaza", value: "Plaza", label: "The potential risk or reward" },
       {
-        id: "q5_civic",
-        value: "Civic",
-        label: '"Be the change you wish to see in the world."',
+        id: "q5_ocean",
+        value: "Ocean",
+        label: "The alignment with your values and beliefs",
       },
       {
-        id: "q5_legion",
-        value: "Legion",
-        label:
-          '"Victory at all costs, victory in spite of all terror, victory however long and hard the road may be; for without victory, there is no survival."',
+        id: "q5_lands",
+        value: "Lands",
+        label: "The long-term consequences",
       },
-      {
-        id: "q5_liberty",
-        value: "Liberty",
-        label:
-          '"Freedom is not the absence of commitment, but the ability to choose - and commit myself to - what is best for me."',
-      },
-      {
-        id: "q5_north",
-        value: "North",
-        label:
-          '"The future belongs to those who believe in the beauty of their dreams."',
-      },
-      {
-        id: "q5_tower",
-        value: "Tower",
-        label: '"Courage is not the absence of fear, but the triumph over it."',
-      },
+      { id: "q5_reserve", value: "Reserve", label: "Solving an issue in the short-term first." },
     ],
   },
+
   {
     id: 6,
-    text: "What do you consider to be the most important aspect of your personal well-being?",
+    text: "Which of these quotes resonates with you the most?",
+    options: [
+      { id: "q6_vista", value: "Vista", label: "'The only true wisdom is in knowing you know nothing.' - Socrates" },
+      { id: "q6_plaza", value: "Plaza", label: "'The greatest glory in living lies not in never falling, but in rising every time we fall.' - Nelson Mandela" },
+      {
+        id: "q6_ocean",
+        value: "Ocean",
+        label: "'Life is like riding a bicycle. To keep your balance, you must keep moving.' - Albert Einstein",
+      },
+      {
+        id: "q6_lands",
+        value: "Lands",
+        label: "'You miss 100% of the shots you don't take.' - Wayne Gretzky",
+      },
+      { id: "q6_reserve", value: "Reserve", label: "'It does not matter how slowly you go as long as you do not stop.' - Confucius" },
+    ],
+  },
+
+  {
+    id: 7,
+    text: "'Which of the following best describes your view on travel?'",
     options: [
       {
-        id: "q6_civic",
-        value: "Civic",
-        label: "Eating healthily and taking care of your physical health",
+        id: "q7_field",
+        value: "Field",
+        label: "It's a way to learn about new culture",
       },
       {
-        id: "q6_legion",
-        value: "Legion",
-        label: "Balancing self-care with responsibilities",
+        id: "q7_mason",
+        value: "Mason",
+        label: "It's a chance to conquer new territories",
       },
       {
-        id: "q6_liberty",
-        value: "Liberty",
-        label: "Building self-worth and finding purpose in life",
+        id: "q7_gate",
+        value: "Gate",
+        label: "It's a way to defend individual rights",
       },
       {
-        id: "q6_north",
-        value: "North",
-        label: "Effective stress management and resilience",
+        id: "q7_labyrinth",
+        value: "Labyrinth",
+        label: "It's an opportunity to explore the unknown",
       },
       {
-        id: "q6_tower",
-        value: "Tower",
-        label: "Seeking help and guidance from others when necessary",
+        id: "q7_laurel",
+        value: "Laurel",
+        label: "I haven't traveled enough to have a strong opinion",
       },
     ],
   },
+
+  {
+  id: 8, 
+    text: "How do you approach new ideas or experiences?",
+    options: [
+      {
+        id: "q8_field",
+        value: "Field",
+        label: "Working with others to achieve a common goal",
+      },
+      {
+        id: "q8_mason",
+        value: "Mason",
+        label: "Setting small, achievable goals",
+      },
+      {
+        id: "q8_gate",
+        value: "Gate",
+        label: "Sticking to your principles and beliefs",
+      },
+      {
+        id: "q8_labyrinth",
+        value: "Labyrinth",
+        label: "Embracing the unknown and taking risks",
+      },
+      {
+        id: "q8_laurel",
+        value: "Laurel",
+        label: "I am open to new ideas, but prefer to research and analyze before trying them.",
+      },
+    ],
+  },
+
+  {
+    id: 9,
+    text: "When you encounter a problem, what is your typical approach to finding a solution?",
+    options: [
+      {
+         id: "q9_vista", value: "Vista", label: "Vista: Breaking it down into smaller parts and analyzing each one" 
+      },
+        { id: "q9_plaza", value: "Plaza", label: "Plaza: Asking for advice or help from others" },
+        { id: "q9_ocean", value: "Ocean", label: "Ocean: Trying out different solutions until one works" },
+        { id: "q9_lands", value: "Lands", label: "Lands: Researching and gathering as much information as possible" },
+        { id: "q9_reserve", value: "Reserve", label: "Reserve: Trusting your intuition and making a quick decision" }
+    ]
+  },
+
+  {
+  id: 10,
+    text: "What is your approach to personal growth?",
+    options: [
+      {
+        id: "q10_field",
+        value: "Field",
+        label: "Nurturing and supporting each other through teamwork",
+      },
+      {
+        id: "q10_mason",
+        value: "Mason",
+        label: "Striving towards the next goal or challenges",
+      },
+      {
+        id: "q10_gate",
+        value: "Gate",
+        label: "Be positive about the journey, even when it's difficult",
+      },
+      {
+        id: "q10_labyrinth",
+        value: "Labyrinth",
+        label: "To explore new ideas",
+      },
+      {
+        id: "q10_laurel",
+        value: "Laurel",
+        label: "Embracing lifelong learning",
+      },
+    ],
+  },
+
+  {
+    id: 11,
+    text: "When faced with a difficult decision, what is your approach?",
+    options: [
+      {
+        id: "q11_circuit",
+        value: "Circuit",
+        label: "Analyzing all the options and weighing the pros and cons"
+      },
+      {
+        id: "q11_eureka",
+        value: "Eureka",
+        label: "Continuous improvement and setting new goals"
+      },
+      {
+        id: "q11_gate",
+        value: "Gate",
+        label: "Sticking to your moral and ethical principles"
+      },
+      {
+        id: "q11_labyrinth",
+        value: "Labyrinth",
+        label: "Trusting your gut instincts and taking a leap of faith"
+      },
+      {
+        id: "q11_laurel",
+        value: "Laurel",
+        label: "Seeking balance and harmony in all aspects of the situation"
+      }
+    ]
+  },
+
+  {
+    id: 12,
+    text: "How do you typically approach setting and achieving goals?",
+    options: [
+      {
+        id: "q12_civic",
+        value: "Civic",
+        label: "By breaking them down into smaller, manageable steps"
+      },
+      {
+        id: "q12_eureka",
+        value: "Eureka",
+        label: "By setting ambitious and challenging targets"
+      },
+      {
+        id: "q12_gate",
+        value: "Gate",
+        label: "By aligning your goals with your personal values and beliefs"
+      },
+      {
+        id: "q12_labyrinth",
+        value: "Labyrinth",
+        label: "By constantly adapting and revising your goals as circumstances change"
+      },
+      {
+        id: "q12_laurel",
+        value: "Laurel",
+        label: "By striving for a sense of balance and fulfillment in all areas of your life"
+      }
+    ]
+  }, 
+
+  {
+    id: 13,
+    text: "Which of the following best describes your attitude towards risk-taking?",
+    options: [
+      {
+        id: "q13_civic",
+        value: "Civic",
+        label: "You prefer to play it safe and avoid taking unnecessary risks"
+      },
+      {
+        id: "q13_eureka",
+        value: "Eureka",
+        label: "You enjoy taking calculated risks that push you out of your comfort zone"
+      },
+      {
+        id: "q13_gate",
+        value: "Gate",
+        label: "You only take risks that align with your personal values and principles"
+      },
+      {
+        id: "q13_labyrinth",
+        value: "Labyrinth",
+        label: "You embrace risk-taking as an essential part of personal growth and development"
+      },
+      {
+        id: "q13_laurel",
+        value: "Laurel",
+        label: "You seek balance and harmony in your approach to risk-taking, carefully considering the potential rewards and consequences"
+      }
+    ]
+  }, 
+  {
+    id: 14,
+    text: "Which of the following best describes your approach to building lasting connections?",
+    options: [
+      {
+        id: "q14_pier",
+        value: "Pier",
+        label: "Building a strong foundation before embarking on new relationships"
+      },
+      {
+        id: "q14_cable",
+        value: "Cable",
+        label: "Honoring and nurturing existing relationships"
+      },
+      {
+        id: "q14_chronicle",
+        value: "Chronicle",
+        label: "Communicating honestly and authentically with others"
+      },
+      {
+        id: "q14_pyramid",
+        value: "Pyramid",
+        label: "Fostering a strong sense of self and identity"
+      },
+      {
+        id: "q14_laurel",
+        value: "Laurel",
+        label: "Cultivating deep and profound connections with others"
+      }
+    ]
+  },
+  {
+    id: 15,
+    text: "When encountering new challenges, what is your preferred approach?",
+    options: [
+      {
+        id: "q15_pier",
+        value: "Pier",
+        label: "By standing firm and facing the challenges head on at the edge of a pier."
+      },
+      {
+        id: "q15_cable",
+        value: "Cable",
+        label: "Finding groups of people with shared problems and working it all out"
+      },
+      {
+        id: "q15_chronicle",
+        value: "Chronicle",
+        label: "Documenting and preserving experiences for future reflection"
+      },
+      {
+        id: "q15_pyramid",
+        value: "Pyramid",
+        label: "Building a strong foundation and steadily rising to the top"
+      },
+      {
+        id: "q15_laurel",
+        value: "Laurel",
+        label: "Looking for multiple people you trust to help with the issue"
+      }
+    ]
+  }, 
+
+  {
+    id: 16,
+    text: "How do you prefer to resolve conflicts or disagreements with others?",
+    options: [
+      {
+        id: "q16_pier",
+        value: "Pier",
+        label: "Addressing the issue directly and honestly with the person involved, aiming for a mutual understanding"
+      },
+      {
+        id: "q16_cable",
+        value: "Cable",
+        label: "Bringing in diverse perspectives to find a solution that accommodates everyone's needs"
+      },
+      {
+        id: "q16_chronicle",
+        value: "Chronicle",
+        label: "Reflecting on past experiences to find a resolution strategy that worked in similar situations"
+      },
+      {
+        id: "q16_pyramid",
+        value: "Pyramid",
+        label: "Focusing on the underlying issues and working together to build a stronger relationship"
+      },
+      {
+        id: "q16_laurel",
+        value: "Laurel",
+        label: "Seeking guidance from trusted mentors or experts to mediate the conflict"
+      }
+    ]
+  } 
+
 ];
 
 const auth = getAuth(); // Initialize Firebase Authentication
@@ -189,6 +466,17 @@ const QuestionPage: React.FC = () => {
       }
     }
   }, [questionId]);
+
+  useEffect(() => {
+    if (questionId) {
+      const parsedQuestionId = parseInt(questionId as string, 10);
+      if (!isNaN(parsedQuestionId)) {
+        setCurrentQuestion(parsedQuestionId);
+        setSelectedOption(""); // Reset selected option when the question changes
+      }
+    }
+  }, [questionId]);
+  
 
   const question = questions.find((q) => q.id === currentQuestion) ?? null;
 
@@ -220,6 +508,7 @@ const QuestionPage: React.FC = () => {
         setResponseId(docRef.id);
       } else if (responseId) {
         await updateDoc(doc(db, "responses", responseId), responseToStore);
+        console.log(responseToStore);
       }
 
       const nextQuestionId = currentQuestion + 1;
@@ -248,7 +537,7 @@ const QuestionPage: React.FC = () => {
               {question.options.map((option) => (
                 <label
                   key={option.id}
-                  className="mb-4 block cursor-pointer rounded-md bg-[#E0D6D680] p-4 transition-transform hover:scale-105"
+                  className="mb-4 block cursor-pointer rounded-md bg-[#E0D6D680] p-4 transition-transform hover:bg-slate-200 hover:scale-105"
                 >
                   <input
                     type="radio"

@@ -1,83 +1,99 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "~/components/Navbar";
-
-import { db } from "./../../firebase"; // Adjust the path based on your actual file structure
-import { doc, getDoc } from "firebase/firestore";
+import { db } from "./../../firebase";
+import { collection, query, where, getDocs } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const FinalPage: React.FC = () => {
-  const [vibe, setVibe] = useState<string>("");
-
-  useEffect(() => {
-    const auth = getAuth();
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        // User is signed in, now fetch the document
-        // Fetch the document using uid
-      } else {
-        // User is signed out
-        console.log("User not logged in");
-      }
-    });
-  }, []);
+  const [vibe, setVibe] = useState<string>("evaluating...");
 
   useEffect(() => {
     const evaluateResponses = async () => {
       const auth = getAuth();
       const user = auth.currentUser;
+
       if (!user) {
         console.log("User not logged in");
+        setVibe("User not logged in.");
         return;
       }
-  
-      const responsesRef = doc(db, "responses", user.uid);
-      getDoc(responsesRef)
-        .then((docSnap) => {
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            const tally = { Civic: 0, Legion: 0, Liberty: 0, North: 0, Tower: 0 };
-  
+
+      try {
+        const responsesCollection = collection(db, "responses");
+        const q = query(responsesCollection, where("userId", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          console.log("No responses document found for the user.");
+          setVibe("No response found.");
+        } else {
+          const responseDoc = querySnapshot.docs.find((doc) => doc.exists());
+          if (responseDoc) {
+            const data = responseDoc.data();
+
+            const tally: Record<string, number> = {};
             Object.values(data).forEach((value) => {
-              if (typeof value === "string" && tally.hasOwnProperty(value)) {
-                tally[value as keyof typeof tally]++;
+              if (typeof value === "string") {
+                tally[value] = (tally[value] ?? 0) + 1;
               }
             });
-  
-            const [highestCategory] = Object.entries(tally).reduce((a, b) => a[1] > b[1] ? a : b);
-  
-            const adjectives = {
+
+            // Determine the highest category
+            const highestCategory = Object.entries(tally).reduce(
+              (a, b) => (a[1] > b[1] ? a : b)
+            )[0];
+
+            const adjectives: Record<string, string> = {
               Civic: "Community-Oriented",
               Legion: "Resilient",
               Liberty: "Independent",
               North: "Visionary",
               Tower: "Courageous",
+              Lands: "Grounded",
+              Ocean: "Creative",
+              Plaza: "Supportive",
+              Reserve: "Thoughtful",
+              Vista: "Curious",
+              Pier: "Adventurous",
+              Cable: "Connected",
+              Chronicle: "Goal-Oriented",
+              Pyramid: "Meditative",
+              Union: "Collaborative",
+              Field: "Open-minded",
+              Gate: "Welcoming",
+              Labyrinth: "Mysterious",
+              Laurel: "Connected",
+              Mason: "Crafty",
+              Circuit: "Innovative",
+              Eureka: "Enlightened",
+              Hunter: "Focused",
+              Mission: "Determined",
+              Octagon: "Strategic",
+              // Add or adjust adjectives as needed
             };
-  
-            setVibe(adjectives[highestCategory as keyof typeof adjectives]);
+
+            // Set the vibe based on the highestCategory, ensure fallback if not found
+            setVibe(adjectives[highestCategory] ?? "unique");
           } else {
             console.log("No responses document found for the user.");
+            setVibe("No response found.");
           }
-        })
-        .catch((error) => {
-          console.error("Error getting document:", error);
-        });
+        }
+      } catch (error) {
+        console.error("Error getting document:", error);
+        setVibe("Error retrieving responses.");
+      }
     };
-  
-    evaluateResponses().catch((error) => {
-      console.error("Error in evaluateResponses:", error);
-    });
+
+    void evaluateResponses();
   }, []);
-  
 
   return (
     <>
       <Navbar />
       <main
         className="flex min-h-screen flex-col items-center justify-center bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: "url(/Visual.svg)",
-          backgroundSize: "200% 200%",
-        }}
+        style={{ backgroundImage: "url(/Visual.svg)", backgroundSize: "200% 200%" }}
       >
         <h1 className="text-center text-5xl font-bold">
           Congratulations
@@ -85,8 +101,7 @@ const FinalPage: React.FC = () => {
           for your completion
         </h1>
         <p className="mt-4 text-2xl">
-          Your Minerva vibe is{" "}
-          <span className="text-orange-500">{vibe || "evaluating..."}</span>
+          Your Minerva vibe is <span className="text-white rounded-xl bg-red-400 bg-opacity-50 p-2">{vibe}</span>
         </p>
       </main>
     </>
