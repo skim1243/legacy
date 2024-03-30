@@ -1,8 +1,14 @@
 // Achievements.tsx
 import React from 'react';
-import Navbar from './Navbar'; // Import the Navbar component
+import Navbar from './Navbar';
+import * as RadixSelect from '@radix-ui/react-select';
+import countriesList from 'countries-list'; // Import the countries-list library
 
+// Import the Navbar component
 const Achievements: React.FC = () => {
+  // Get the list of countries from the countries-list library
+  const countries = Object.values(countriesList.countries);
+
   return (
     <>
       <Navbar />
@@ -21,7 +27,24 @@ const Achievements: React.FC = () => {
               className="w-full bg-[#E0ECFD66] text-[#333333] rounded p-4"
             />
             {/* Dropdowns and Inputs for Profile Details */}
+            <RadixSelect.Root>
+              <RadixSelect.Trigger className="w-full bg-[#E0ECFD66] text-[#333333] rounded p-4">
+                <RadixSelect.Value placeholder="Select a country" />
+              </RadixSelect.Trigger>
+              <RadixSelect.Content>
+                <RadixSelect.ScrollUpButton>Scroll Up</RadixSelect.ScrollUpButton>
+                <RadixSelect.Viewport>
+                  {countries.map((country) => (
+                    <RadixSelect.Item key={country.name} value={country.name}>
+                      {country.name}
+                    </RadixSelect.Item>
+                  ))}
+                </RadixSelect.Viewport>
+                <RadixSelect.ScrollDownButton>Scroll Down</RadixSelect.ScrollDownButton>
+              </RadixSelect.Content>
+            </RadixSelect.Root>
             {/* ... similar input and select elements ... */}
+
             {/* Achievements List */}
             <div className="space-y-2">
               <div className="font-semibold">Please list your achievements (100 words per item)</div>

@@ -1,16 +1,28 @@
-import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-3 bg-[#F8F9FA]">
+    <nav className="sticky top-0 z-50 flex items-center justify-between bg-[#F8F9FA] px-6 py-3">
       <div className="flex items-center">
-        <Image src="/minerva.svg" alt="Logo" width={50} height={50} />
+        <Link href="/">
+          <Image src="/minerva.svg" alt="Logo" width={50} height={50} />
+        </Link>
       </div>
-      <div className="hidden md:flex space-x-4">
-        <Link href="/" className="text-[#6C757D] hover:text-[#111928] transition duration-150 ease-in-out">About</Link>
-        <Link href="/" className="text-[#6C757D] hover:text-[#111928] transition duration-150 ease-in-out">Account</Link>
+      <div className="hidden space-x-4 md:flex">
+        <Link
+          href="/"
+          className="text-[#6C757D] transition duration-150 ease-in-out hover:text-[#111928]"
+        >
+          About
+        </Link>
+        <Link
+          href="/"
+          className="text-[#6C757D] transition duration-150 ease-in-out hover:text-[#111928]"
+        >
+          Account
+        </Link>
       </div>
     </nav>
   );
