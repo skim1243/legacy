@@ -34,7 +34,7 @@ const FinalPage: React.FC = () => {
             const tally: { [key: string]: number } = {};
             Object.values(data).forEach((value) => {
               if (typeof value === "string") {
-                tally[value] = (tally[value] || 0) + 1;
+                tally[value] = (tally[value] ?? 0) + 1;
               }
             });
 
@@ -50,19 +50,19 @@ const FinalPage: React.FC = () => {
               North: "Visionary",
               Tower: "Courageous",
               Lands: "Grounded",
-              Ocean: "Boundless",
-              Plaza: "Cultured",
-              Reserve: "Conservative",
-              Vista: "Scenic",
+              Ocean: "Creative",
+              Plaza: "Supportive",
+              Reserve: "Thoughtful",
+              Vista: "Curious",
               Pier: "Adventurous",
               Cable: "Connected",
-              Chronicle: "Historic",
-              Pyramid: "Eternal",
+              Chronicle: "Goal-Oriented",
+              Pyramid: "Meditative",
               Union: "Collaborative",
               Field: "Open-minded",
               Gate: "Welcoming",
               Labyrinth: "Mysterious",
-              Laurel: "Victorious",
+              Laurel: "Connected",
               Mason: "Crafty",
               Circuit: "Innovative",
               Eureka: "Enlightened",
@@ -73,7 +73,7 @@ const FinalPage: React.FC = () => {
             };
 
             // Set the vibe based on the highestCategory, ensure fallback if not found
-            setVibe(adjectives[highestCategory] || "unique");
+            setVibe(adjectives[highestCategory] ?? "unique");
           } else {
             console.log("No responses document found for the user.");
             setVibe("No response found.");
@@ -101,7 +101,7 @@ const FinalPage: React.FC = () => {
           for your completion
         </h1>
         <p className="mt-4 text-2xl">
-          Your Minerva vibe is <span className="text-orange-500">{vibe}</span>
+          Your Minerva vibe is <span className="text-white rounded-xl bg-red-400 bg-opacity-50 p-2">{vibe}</span>
         </p>
       </main>
     </>
