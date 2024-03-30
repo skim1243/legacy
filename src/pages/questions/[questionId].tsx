@@ -508,6 +508,7 @@ const QuestionPage: React.FC = () => {
         setResponseId(docRef.id);
       } else if (responseId) {
         await updateDoc(doc(db, "responses", responseId), responseToStore);
+        console.log(responseToStore);
       }
 
       const nextQuestionId = currentQuestion + 1;
