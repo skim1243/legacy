@@ -31,7 +31,7 @@ const FinalPage: React.FC = () => {
           if (responseDoc) {
             const data = responseDoc.data();
 
-            const tally: { [key: string]: number } = {};
+            const tally: Record<string, number> = {};
             Object.values(data).forEach((value) => {
               if (typeof value === "string") {
                 tally[value] = (tally[value] ?? 0) + 1;
@@ -43,7 +43,7 @@ const FinalPage: React.FC = () => {
               (a, b) => (a[1] > b[1] ? a : b)
             )[0];
 
-            const adjectives: { [key: string]: string } = {
+            const adjectives: Record<string, string> = {
               Civic: "Community-Oriented",
               Legion: "Resilient",
               Liberty: "Independent",
@@ -85,7 +85,7 @@ const FinalPage: React.FC = () => {
       }
     };
 
-    evaluateResponses();
+    void evaluateResponses();
   }, []);
 
   return (
