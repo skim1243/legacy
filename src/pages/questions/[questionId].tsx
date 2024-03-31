@@ -211,45 +211,31 @@ const questions = [
   },
 
   {
-    id: 9,
-    text: "When you encounter a problem, what is your typical approach to finding a solution?",
-    options: [
-      {
-         id: "q9_vista", value: "Vista", label: "Vista: Breaking it down into smaller parts and analyzing each one" 
-      },
-        { id: "q9_plaza", value: "Plaza", label: "Plaza: Asking for advice or help from others" },
-        { id: "q9_ocean", value: "Ocean", label: "Ocean: Trying out different solutions until one works" },
-        { id: "q9_lands", value: "Lands", label: "Lands: Researching and gathering as much information as possible" },
-        { id: "q9_reserve", value: "Reserve", label: "Reserve: Trusting your intuition and making a quick decision" }
-    ]
-  },
-
-  {
-  id: 10,
+  id: 9,
     text: "What is your approach to personal growth?",
     options: [
       {
-        id: "q10_field",
+        id: "q9_field",
         value: "Field",
         label: "Nurturing and supporting each other through teamwork",
       },
       {
-        id: "q10_mason",
+        id: "q9_mason",
         value: "Mason",
         label: "Striving towards the next goal or challenges",
       },
       {
-        id: "q10_gate",
+        id: "q9_gate",
         value: "Gate",
         label: "Be positive about the journey, even when it's difficult",
       },
       {
-        id: "q10_labyrinth",
+        id: "q9_labyrinth",
         value: "Labyrinth",
         label: "To explore new ideas",
       },
       {
-        id: "q10_laurel",
+        id: "q9_laurel",
         value: "Laurel",
         label: "Embracing lifelong learning",
       },
@@ -257,31 +243,31 @@ const questions = [
   },
 
   {
-    id: 11,
+    id: 10,
     text: "When faced with a difficult decision, what is your approach?",
     options: [
       {
-        id: "q11_circuit",
+        id: "q10_circuit",
         value: "Circuit",
         label: "Analyzing all the options and weighing the pros and cons"
       },
       {
-        id: "q11_eureka",
+        id: "q10_eureka",
         value: "Eureka",
         label: "Continuous improvement and setting new goals"
       },
       {
-        id: "q11_gate",
+        id: "q10_gate",
         value: "Gate",
         label: "Sticking to your moral and ethical principles"
       },
       {
-        id: "q11_labyrinth",
+        id: "q10_labyrinth",
         value: "Labyrinth",
         label: "Trusting your gut instincts and taking a leap of faith"
       },
       {
-        id: "q11_laurel",
+        id: "q10_laurel",
         value: "Laurel",
         label: "Seeking balance and harmony in all aspects of the situation"
       }
@@ -289,31 +275,31 @@ const questions = [
   },
 
   {
-    id: 12,
+    id: 11,
     text: "How do you typically approach setting and achieving goals?",
     options: [
       {
-        id: "q12_civic",
+        id: "q11_civic",
         value: "Civic",
         label: "By breaking them down into smaller, manageable steps"
       },
       {
-        id: "q12_eureka",
+        id: "q11_eureka",
         value: "Eureka",
         label: "By setting ambitious and challenging targets"
       },
       {
-        id: "q12_gate",
+        id: "q11_gate",
         value: "Gate",
         label: "By aligning your goals with your personal values and beliefs"
       },
       {
-        id: "q12_labyrinth",
+        id: "q11_labyrinth",
         value: "Labyrinth",
         label: "By constantly adapting and revising your goals as circumstances change"
       },
       {
-        id: "q12_laurel",
+        id: "q11_laurel",
         value: "Laurel",
         label: "By striving for a sense of balance and fulfillment in all areas of your life"
       }
@@ -321,93 +307,93 @@ const questions = [
   }, 
 
   {
-    id: 13,
+    id: 12,
     text: "Which of the following best describes your attitude towards risk-taking?",
     options: [
       {
-        id: "q13_civic",
+        id: "q12_civic",
         value: "Civic",
         label: "You prefer to play it safe and avoid taking unnecessary risks"
       },
       {
-        id: "q13_eureka",
+        id: "q12_eureka",
         value: "Eureka",
         label: "You enjoy taking calculated risks that push you out of your comfort zone"
       },
       {
-        id: "q13_gate",
+        id: "q12_gate",
         value: "Gate",
         label: "You only take risks that align with your personal values and principles"
       },
       {
-        id: "q13_labyrinth",
+        id: "q12_labyrinth",
         value: "Labyrinth",
         label: "You embrace risk-taking as an essential part of personal growth and development"
       },
       {
-        id: "q13_laurel",
+        id: "q12_laurel",
         value: "Laurel",
         label: "You seek balance and harmony in your approach to risk-taking, carefully considering the potential rewards and consequences"
       }
     ]
   }, 
   {
-    id: 14,
+    id: 13,
     text: "Which of the following best describes your approach to building lasting connections?",
     options: [
       {
-        id: "q14_pier",
+        id: "q13_pier",
         value: "Pier",
         label: "Building a strong foundation before embarking on new relationships"
       },
       {
-        id: "q14_cable",
+        id: "q13_cable",
         value: "Cable",
         label: "Honoring and nurturing existing relationships"
       },
       {
-        id: "q14_chronicle",
+        id: "q13_chronicle",
         value: "Chronicle",
         label: "Communicating honestly and authentically with others"
       },
       {
-        id: "q14_pyramid",
+        id: "q13_pyramid",
         value: "Pyramid",
         label: "Fostering a strong sense of self and identity"
       },
       {
-        id: "q14_laurel",
+        id: "q13_laurel",
         value: "Laurel",
         label: "Cultivating deep and profound connections with others"
       }
     ]
   },
   {
-    id: 15,
+    id: 14,
     text: "When encountering new challenges, what is your preferred approach?",
     options: [
       {
-        id: "q15_pier",
+        id: "q14_pier",
         value: "Pier",
         label: "By standing firm and facing the challenges head on at the edge of a pier."
       },
       {
-        id: "q15_cable",
+        id: "q14_cable",
         value: "Cable",
         label: "Finding groups of people with shared problems and working it all out"
       },
       {
-        id: "q15_chronicle",
+        id: "q14_chronicle",
         value: "Chronicle",
         label: "Documenting and preserving experiences for future reflection"
       },
       {
-        id: "q15_pyramid",
+        id: "q14_pyramid",
         value: "Pyramid",
         label: "Building a strong foundation and steadily rising to the top"
       },
       {
-        id: "q15_laurel",
+        id: "q14_laurel",
         value: "Laurel",
         label: "Looking for multiple people you trust to help with the issue"
       }
@@ -415,31 +401,31 @@ const questions = [
   }, 
 
   {
-    id: 16,
+    id: 15,
     text: "How do you prefer to resolve conflicts or disagreements with others?",
     options: [
       {
-        id: "q16_pier",
+        id: "q15_pier",
         value: "Pier",
         label: "Addressing the issue directly and honestly with the person involved, aiming for a mutual understanding"
       },
       {
-        id: "q16_cable",
+        id: "q15_cable",
         value: "Cable",
         label: "Bringing in diverse perspectives to find a solution that accommodates everyone's needs"
       },
       {
-        id: "q16_chronicle",
+        id: "q15_chronicle",
         value: "Chronicle",
         label: "Reflecting on past experiences to find a resolution strategy that worked in similar situations"
       },
       {
-        id: "q16_pyramid",
+        id: "q15_pyramid",
         value: "Pyramid",
         label: "Focusing on the underlying issues and working together to build a stronger relationship"
       },
       {
-        id: "q16_laurel",
+        id: "q15_laurel",
         value: "Laurel",
         label: "Seeking guidance from trusted mentors or experts to mediate the conflict"
       }
